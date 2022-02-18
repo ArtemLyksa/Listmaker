@@ -6,9 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.lyksa.listmaker.R
+import com.lyksa.listmaker.databinding.MainFragmentBinding
+import org.intellij.lang.annotations.JdkConstants
 
 class MainFragment : Fragment() {
+
+    private lateinit var binding: MainFragmentBinding
 
     companion object {
         fun newInstance() = MainFragment()
@@ -20,7 +26,12 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        binding = MainFragmentBinding.inflate(inflater, container, false)
+
+        binding.listRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+        binding.listRecyclerview.adapter = ListSelectionRecyclerViewAdapter()
+
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
